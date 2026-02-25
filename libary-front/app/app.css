@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+:root {
+  --background-color-main: rgb(249, 248, 248);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Heebo", "Rubik", Arial, sans-serif;
+  background-color: var(--background-color-main);
+}

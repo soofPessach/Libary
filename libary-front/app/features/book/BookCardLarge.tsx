@@ -19,6 +19,7 @@ import { getBookIdAvlUserLibraries } from "~/Services/user";
 import BookImage from "./BookImage";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
 import { useMemo } from "react";
+import AddToWaitListDialog from "../waitlist/addToWaitListDialog";
 
 interface BookCardLargeProps {
   book: Book;
@@ -84,9 +85,13 @@ function BookCardLarge(props: BookCardLargeProps) {
                 (pre, curr) => (pre += `${pre !== "" ? ", " : ""}${curr.name}`),
                 "",
               )}
+              <AddToWaitListDialog
+                isBookAvailableNow={true}
+                avlLibrariesForBook={avlLibrariesForBook}
+              />
             </div>
           ) : (
-            <Button>add to waitingList</Button>
+            <AddToWaitListDialog isBookAvailableNow={false} />
           )}
         </div>
       </div>

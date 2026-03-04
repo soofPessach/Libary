@@ -11,17 +11,25 @@ import { useNavigate } from "react-router";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
 import { users } from "~/mockData/User";
 import ProfileHoverCard from "./profile/profileHoverCard";
+import { useState } from "react";
 
 function MainAppBar() {
-  const loginUserId = useLoginUserId((state) => state.loginUserId);
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigateToHomePage = () => {
     navigate("");
   };
 
-  const navigateToWishListPage = () => {
-    navigate("/wishlist");
+  const navigateToSearchTerm = () => {
+    navigate(`/search/${searchTerm}`);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setSearchTerm("");
+      navigateToSearchTerm();
+    }
   };
 
   return (
@@ -29,12 +37,15 @@ function MainAppBar() {
       <div onClick={(e) => navigateToHomePage()}>
         <Avatar fallback={"L"} />
       </div>
-      <TextField.Root placeholder="Search by book name or author">
+      <TextField.Root
+        placeholder="Search by book name or author"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleKeyDown}
+      >
         <TextField.Slot>{/* <Search /> */}</TextField.Slot>
       </TextField.Root>
       <ProfileHoverCard />
-      <Button>Menu</Button>
-      <Button onClick={(e) => navigateToWishListPage()}>Wishlist</Button>
     </div>
   );
 }

@@ -18,8 +18,8 @@ function ProfileHoverCard() {
   const loginUserId = useLoginUserId((state) => state.loginUserId);
   const loginUser = getUserByUserId(loginUserId);
 
-  const navigateToWishListPage = () => {
-    navigate("/wishlist");
+  const navigateToWaitListPage = () => {
+    navigate("/waitlist");
   };
 
   const navigateToUserLoansPage = () => {
@@ -42,7 +42,7 @@ function ProfileHoverCard() {
         <Separator my="3" size="4" />
         <Text>update info</Text>
         <Separator my="3" size="4" />
-        <Text onClick={(e) => navigateToWishListPage()}>wishlist</Text>
+        <Text onClick={(e) => navigateToWaitListPage()}>waitlist</Text>
         <Separator my="3" size="4" />
         <Text onClick={(e) => navigateToUserLoansPage()}>my books</Text>
         <Separator my="3" size="4" />

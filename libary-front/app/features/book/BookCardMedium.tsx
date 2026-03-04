@@ -70,10 +70,6 @@ function BookCardMedium(props: BookCardMediumProps) {
         <div>
           <Text>{props.book.summeryInSentence}</Text>
         </div>
-
-        <Button className="rounded-full" onClick={(e) => navigateToBookPage()}>
-          Quick pick
-        </Button>
       </div>
     </div>
   );

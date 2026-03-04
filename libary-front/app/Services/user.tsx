@@ -4,19 +4,9 @@ import { libraryBooksData } from "~/mockData/LibraryBook";
 import { loansData } from "~/mockData/Loans";
 import { users } from "~/mockData/User";
 import { userLibrariesData } from "~/mockData/UserLibraries";
-import { wishlistData } from "~/mockData/Wishlist";
 import { getBookByBooksId } from "./book";
 import { getLibrariesByLibrariesId } from "./library";
-
-export const getUserWishList = (userId?: string) => {
-  if (!userId) return [];
-
-  const userWishlistBookId = wishlistData
-    .filter((book) => book.userId === userId)
-    .map((wishlist) => wishlist.bookId);
-
-  return books.filter((book) => userWishlistBookId.includes(book.id));
-};
+import { bookWaitlistData } from "~/mockData/BookWaitlist";
 
 export const getUserByUserId = (userId?: string) => {
   if (!userId) return undefined;
@@ -142,5 +132,25 @@ export const getBookIdAvlUserLibraries = (userId?: string, bookId?: string) => {
     userLibraries.filter((userLibrary) =>
       isBookIdInLibraryIdAvailable(bookId, userLibrary),
     ),
+  );
+};
+
+export const getBookNameOrAuthorByTerm = (userId?: string, term?: string) => {
+  if (!userId || !term) return [];
+
+  const authBooks = getBookByBooksId(getUserLibrariesBooksId(userId));
+
+  return authBooks.filter(
+    (authBook) =>
+      authBook.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()) ||
+      authBook.author.toLocaleLowerCase().includes(term.toLocaleLowerCase()),
+  );
+};
+
+export const getUserWaitList = (userId?: string) => {
+  if (!userId) return [];
+
+  return bookWaitlistData.filter(
+    (bookInWaitlist) => bookInWaitlist.userId === userId,
   );
 };

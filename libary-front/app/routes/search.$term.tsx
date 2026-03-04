@@ -4,7 +4,7 @@ import { bookGenres } from "~/mockData/BookToGanre";
 import { books } from "~/mockData/Book";
 import BookCardMedium from "~/features/book/BookCardMedium";
 import { Heading, Separator } from "@radix-ui/themes";
-import { getBooksByGenre } from "~/Services/user";
+import { getBookNameOrAuthorByTerm, getBooksByGenre } from "~/Services/user";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
 import {
   filterBooks,
@@ -13,23 +13,25 @@ import {
   type Filter,
 } from "~/features/book/filterSortBooks/filterSortBooksLogic";
 import FilterSortBooks from "~/features/book/filterSortBooks/filterSortBooks";
-export default function BookByGenre() {
-  const { genre } = useParams();
+export default function BooksBySearchTerm() {
+  const { term } = useParams();
   const loginUserId = useLoginUserId((state) => state.loginUserId);
 
-  const booksThisGenre = getBooksByGenre(loginUserId, genre);
+  const booksByTerm = getBookNameOrAuthorByTerm(loginUserId, term);
   const [filters, setFilters] = useState<Filter[]>([]);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.sortBy);
 
+  console.log(booksByTerm);
+
   const filteredBooks = useMemo(
-    () => sortBooks(sortBy, filterBooks(loginUserId, filters, booksThisGenre)),
-    [loginUserId, filters, booksThisGenre],
+    () => sortBooks(sortBy, filterBooks(loginUserId, filters, booksByTerm)),
+    [loginUserId, filters, booksByTerm],
   );
 
   return (
     <div className="flex flex-col gap-7 justify-center">
       <Heading size="9" weight="light">
-        {genre}
+        search by book name or author '{term}'
       </Heading>
       <FilterSortBooks
         filters={filters}
@@ -40,9 +42,9 @@ export default function BookByGenre() {
 
       <div className="flex flex-col gap-7">
         {filteredBooks.map((book) => (
-          <div className="flex flex-col gap-2">
+          <div key={book.id} className="flex flex-col gap-2">
             {" "}
-            <BookCardMedium book={book} />
+            <BookCardMedium key={book.id} book={book} />
             <Separator my="3" size="4" />
           </div>
         ))}

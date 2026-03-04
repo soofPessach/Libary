@@ -8,23 +8,37 @@ export interface BookWaitlist {
 
 export const bookWaitlistData: BookWaitlist[] = [
   {
-    bookId: "1",
+    bookId: "3",
     libraryId: "lib1",
-    userId: "user2",
+    userId: "1",
+    position: 11,
+    dateAdded: new Date(2024, 1, 10),
+  },
+  {
+    bookId: "4",
+    libraryId: "lib1",
+    userId: "1",
     position: 1,
     dateAdded: new Date(2024, 1, 10),
   },
   {
-    bookId: "1",
+    bookId: "5",
     libraryId: "lib1",
-    userId: "user3",
+    userId: "1",
+    position: 7,
+    dateAdded: new Date(2024, 1, 10),
+  },
+  {
+    bookId: "6",
+    libraryId: "lib1",
+    userId: "3",
     position: 2,
     dateAdded: new Date(2024, 1, 12),
   },
   {
-    bookId: "1",
+    bookId: "3",
     libraryId: "lib1",
-    userId: "user4",
+    userId: "4",
     position: 3,
     dateAdded: new Date(2024, 1, 15),
   },

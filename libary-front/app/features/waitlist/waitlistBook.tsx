@@ -16,25 +16,23 @@ import type { Loan } from "~/mockData/Loans";
 import { getBookByBookId, isBookInLibraryOnWaitList } from "~/Services/book";
 import BookImage from "../book/BookImage";
 import { renewLoan } from "~/Services/loan";
+import type { BookWaitlist } from "~/mockData/BookWaitlist";
 
-interface currentLoanProps {
-  loan: Loan;
+interface waitlistBookProps {
+  bookWaitList: BookWaitlist;
 }
 
-function CurrentLoan(props: currentLoanProps) {
+function WaitlistBook(props: waitlistBookProps) {
   const navigate = useNavigate();
 
-  const book = getBookByBookId(props.loan.bookId);
+  const book = getBookByBookId(props.bookWaitList.bookId);
 
   const navigateToBookPage = () => {
     book && navigate(`/${book.id}`);
   };
 
-  const getDaysSinceDate = (date: Date) =>
-    Math.ceil((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-
-  const onRenewLoanClicked = () => {
-    renewLoan(props.loan.userId, props.loan.bookId, props.loan.libraryId);
+  const onCancelWaitClicked = () => {
+    // cancelWait();
   };
   return (
     <div className="flex flex-row gap-5">
@@ -55,29 +53,21 @@ function CurrentLoan(props: currentLoanProps) {
         <div>
           <Text>{book?.author}</Text>
         </div>
-        <div>
-          due in:{" "}
-          <Text
-            className={`${getDaysSinceDate(props.loan.dueDate) < 0 ? "text-red-500" : getDaysSinceDate(props.loan.dueDate) < 7 ? "text-yellow-500" : ""}`}
-          >
-            {getDaysSinceDate(props.loan.dueDate)} days
-          </Text>
-        </div>
 
-        {getDaysSinceDate(props.loan.dueDate) < 7 &&
-        isBookInLibraryOnWaitList(props.loan.bookId, props.loan.libraryId) ? (
-          <Button
-            className="rounded-full"
-            onClick={(e) => onRenewLoanClicked()}
-          >
-            renew load
-          </Button>
+        {props.bookWaitList.position === 0 ? (
+          <Badge>Waiting for you to take</Badge>
+        ) : props.bookWaitList.position === 1 ? (
+          <Badge color="grass" size="3">
+            You are next in line!
+          </Badge>
         ) : (
-          <></>
+          <> place in line: {props.bookWaitList.position}</>
         )}
+
+        <Button onClick={() => onCancelWaitClicked()}>Cancel wait</Button>
       </div>
     </div>
   );
 }
 
-export default CurrentLoan;
+export default WaitlistBook;

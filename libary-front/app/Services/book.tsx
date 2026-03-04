@@ -1,6 +1,8 @@
 import { books } from "~/mockData/Book";
 import { bookGenres } from "~/mockData/BookToGanre";
+import { bookWaitlistData } from "~/mockData/BookWaitlist";
 import { genres } from "~/mockData/Genre";
+import { loansData } from "~/mockData/Loans";
 
 export const getBookByBookId = (bookId?: string) => {
   if (!bookId) return undefined;
@@ -25,4 +27,19 @@ export const getBookGenres = (bookId?: string, isOnlyMainGenre?: boolean) => {
       (isOnlyMainGenre ? genre.isMainGenre : true) &&
       thisBookGenresNames.some((genreName) => genreName === genre.name),
   );
+};
+
+export const isBookInLibraryOnWaitList = (
+  bookId?: string,
+  libraryId?: String,
+) => {
+  if (!bookId || !libraryId) return false;
+
+  const waitListBook = bookWaitlistData.filter(
+    (bookWaitLIstData) =>
+      bookWaitLIstData.bookId === bookId &&
+      bookWaitLIstData.libraryId === libraryId,
+  );
+
+  return waitListBook.length > 0;
 };

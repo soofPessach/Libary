@@ -1,26 +1,45 @@
 import { useParams } from "react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { bookGenres } from "~/mockData/BookToGanre";
-import { books } from "~/mockData/Book";
+import { books, type Book } from "~/mockData/Book";
 import BookCardMedium from "~/features/book/BookCardMedium";
 import { Heading, Separator } from "@radix-ui/themes";
 import { getBooksByAuthor } from "~/Services/user";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
+import FilterSortBooks from "~/features/book/filterSortBooks/filterSortBooks";
+import {
+  filterBooks,
+  sortBooks,
+  SortBy,
+  type Filter,
+} from "~/features/book/filterSortBooks/filterSortBooksLogic";
 
 export default function BookByAuthor() {
   const loginUserId = useLoginUserId((state) => state.loginUserId);
-
   const { author } = useParams();
 
   const booksThisGenre = getBooksByAuthor(loginUserId, author);
+  const [filters, setFilters] = useState<Filter[]>([]);
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.sortBy);
+
+  const filteredBooks = useMemo(
+    () => sortBooks(sortBy, filterBooks(loginUserId, filters, booksThisGenre)),
+    [loginUserId, filters, booksThisGenre],
+  );
 
   return (
     <div className="flex flex-col gap-7 justify-center">
       <Heading size="9" weight="light">
         {author}
       </Heading>
+      <FilterSortBooks
+        filters={filters}
+        setFilters={setFilters}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
       <div className="flex flex-col gap-7">
-        {booksThisGenre.map((book) => (
+        {filteredBooks.map((book) => (
           <div className="flex flex-col gap-2">
             {" "}
             <BookCardMedium book={book} />

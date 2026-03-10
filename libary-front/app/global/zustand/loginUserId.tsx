@@ -6,7 +6,7 @@ interface loginUserIdState {
 }
 
 export const useLoginUserId = create<loginUserIdState>((set) => ({
-  loginUserId: "1",
+  loginUserId: "",
   setLoginUser: (newLoginUserId: string) =>
     set({ loginUserId: newLoginUserId }),
 }));

@@ -3,6 +3,7 @@ import { bookGenres } from "~/mockData/BookToGanre";
 import { bookWaitlistData } from "~/mockData/BookWaitlist";
 import { genres } from "~/mockData/Genre";
 import { loansData } from "~/mockData/Loans";
+import { isBookIdInLibraryIdAvailable } from "./user";
 
 export const getBookByBookId = (bookId?: string) => {
   if (!bookId) return undefined;
@@ -42,4 +43,21 @@ export const isBookInLibraryOnWaitList = (
   );
 
   return waitListBook.length > 0;
+};
+
+export const getBookInLibraryWaitlistNextPlace = (
+  bookId?: string,
+  libraryId?: string,
+) => {
+  if (!bookId || !libraryId) return 999;
+
+  const waitListBook = bookWaitlistData.filter(
+    (bookWaitLIstData) =>
+      bookWaitLIstData.bookId === bookId &&
+      bookWaitLIstData.libraryId === libraryId,
+  );
+
+  const isBookInCurrentLoan = isBookIdInLibraryIdAvailable(bookId, libraryId);
+
+  return waitListBook.length + (isBookInCurrentLoan ? 0 : 1) + 1;
 };

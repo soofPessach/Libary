@@ -4,8 +4,7 @@ export interface Loan {
   bookId: string;
   borrowDate: Date;
   dueDate: Date;
-  returnDate: Date;
-  isReturned: boolean;
+  returnDate?: Date;
 }
 
 export const loansData: Loan[] = [
@@ -13,28 +12,25 @@ export const loansData: Loan[] = [
     libraryId: "lib1",
     userId: "1",
     bookId: "1",
-    borrowDate: new Date(2024, 0, 15),
-    dueDate: new Date(2024, 1, 15),
-    returnDate: new Date(2024, 1, 14),
-    isReturned: false,
+    borrowDate: new Date(2026, 1, 10),
+    dueDate: new Date(2026, 2, 10),
+    returnDate: undefined,
   },
   {
     libraryId: "lib2",
-    userId: "4",
+    userId: "1",
     bookId: "1",
-    borrowDate: new Date(2024, 1, 10),
-    dueDate: new Date(2024, 2, 10),
-    returnDate: new Date(2024, 2, 12),
-    isReturned: false,
+    borrowDate: new Date(2025, 1, 10),
+    dueDate: new Date(2025, 2, 10),
+    returnDate: new Date(2025, 2, 10),
   },
   {
     libraryId: "lib1",
     userId: "2",
     bookId: "3",
-    borrowDate: new Date(2024, 0, 20),
-    dueDate: new Date(2024, 1, 20),
-    returnDate: new Date(2024, 1, 19),
-    isReturned: false,
+    borrowDate: new Date(2026, 1, 10),
+    dueDate: new Date(2026, 2, 10),
+    returnDate: undefined,
   },
   // {
   //   libraryId: "lib1",

@@ -19,7 +19,7 @@ function LoanHistory(props: loanHistoryProps) {
       <Table.RowHeaderCell>{library?.name}</Table.RowHeaderCell>
       <Table.Cell>{book?.name}</Table.Cell>
       <Table.Cell>{props.loan.borrowDate.toDateString()}</Table.Cell>
-      <Table.Cell>{props.loan.returnDate.toDateString()}</Table.Cell>
+      <Table.Cell>{props.loan.returnDate?.toDateString()}</Table.Cell>
     </Table.Row>
   );
 }

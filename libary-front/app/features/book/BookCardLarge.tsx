@@ -15,11 +15,15 @@ import type { Book } from "~/mockData/Book";
 import { bookGenres } from "~/mockData/BookToGanre";
 import { genres, type Genre } from "~/mockData/Genre";
 import { getBookGenres } from "~/Services/book";
-import { getBookIdAvlUserLibraries } from "~/Services/user";
+import {
+  getBookIdAvlUserLibraries,
+  getUserBookLoanHistory,
+} from "~/Services/user";
 import BookImage from "./BookImage";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
 import { useMemo } from "react";
 import AddToWaitListDialog from "../waitlist/addToWaitListDialog";
+import BookLoansHistoryDialog from "./bookLoansHistoryDialog";
 
 interface BookCardLargeProps {
   book: Book;
@@ -78,6 +82,8 @@ function BookCardLarge(props: BookCardLargeProps) {
 
           <div>pages number: {props.book.pageNumber}</div>
 
+          <BookLoansHistoryDialog bookId={props.book.id} />
+
           {avlLibrariesForBook.length > 0 ? (
             <div>
               available in:{" "}
@@ -88,10 +94,14 @@ function BookCardLarge(props: BookCardLargeProps) {
               <AddToWaitListDialog
                 isBookAvailableNow={true}
                 avlLibrariesForBook={avlLibrariesForBook}
+                bookId={props.book.id}
               />
             </div>
           ) : (
-            <AddToWaitListDialog isBookAvailableNow={false} />
+            <AddToWaitListDialog
+              isBookAvailableNow={false}
+              bookId={props.book.id}
+            />
           )}
         </div>
       </div>

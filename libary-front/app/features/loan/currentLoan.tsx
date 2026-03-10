@@ -30,8 +30,10 @@ function CurrentLoan(props: currentLoanProps) {
     book && navigate(`/${book.id}`);
   };
 
-  const getDaysSinceDate = (date: Date) =>
-    Math.ceil((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+  console.log(props.loan.dueDate);
+
+  const getDaysUntilDate = (date: Date) =>
+    Math.ceil((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
 
   const onRenewLoanClicked = () => {
     renewLoan(props.loan.userId, props.loan.bookId, props.loan.libraryId);
@@ -58,14 +60,14 @@ function CurrentLoan(props: currentLoanProps) {
         <div>
           due in:{" "}
           <Text
-            className={`${getDaysSinceDate(props.loan.dueDate) < 0 ? "text-red-500" : getDaysSinceDate(props.loan.dueDate) < 7 ? "text-yellow-500" : ""}`}
+            className={`${getDaysUntilDate(props.loan.dueDate) < 0 ? "text-red-500" : getDaysUntilDate(props.loan.dueDate) < 7 ? "text-yellow-500" : ""}`}
           >
-            {getDaysSinceDate(props.loan.dueDate)} days
+            {getDaysUntilDate(props.loan.dueDate)} days
           </Text>
         </div>
 
-        {getDaysSinceDate(props.loan.dueDate) < 7 &&
-        isBookInLibraryOnWaitList(props.loan.bookId, props.loan.libraryId) ? (
+        {getDaysUntilDate(props.loan.dueDate) < 7 &&
+        !isBookInLibraryOnWaitList(props.loan.bookId, props.loan.libraryId) ? (
           <Button
             className="rounded-full"
             onClick={(e) => onRenewLoanClicked()}

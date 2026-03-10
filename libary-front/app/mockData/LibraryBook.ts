@@ -13,7 +13,7 @@ export const libraryBooksData: LibraryBook[] = [
   { libraryId: "lib2", bookId: "1", quantity: 1 },
   { libraryId: "lib2", bookId: "6", quantity: 1 },
   { libraryId: "lib2", bookId: "7", quantity: 1 },
-  { libraryId: "lib2", bookId: "1", quantity: 1 },
+  { libraryId: "lib2", bookId: "8", quantity: 1 },
   { libraryId: "lib2", bookId: "9", quantity: 1 },
   { libraryId: "lib3", bookId: "10", quantity: 5 },
   { libraryId: "lib3", bookId: "11", quantity: 4 },

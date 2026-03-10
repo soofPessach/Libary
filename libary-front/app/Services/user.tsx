@@ -14,6 +14,14 @@ export const getUserByUserId = (userId?: string) => {
   return users.find((user) => user.id === userId);
 };
 
+export const getUserByEmailPassword = (email?: string, password?: string) => {
+  if (!email || !password) return undefined;
+
+  return users.find(
+    (user) => user.email === email && user.password === password,
+  );
+};
+
 export const getUserLibrariesId = (userId?: string) => {
   if (!userId) return [];
   return userLibrariesData
@@ -45,7 +53,7 @@ export const getUserLoans = (userId?: String, isOnlyCurrentLoans?: boolean) => {
 
   return loansData.filter(
     (loan) =>
-      loan.userId === userId && (isOnlyCurrentLoans ? !loan.isReturned : true),
+      loan.userId === userId && (isOnlyCurrentLoans ? !loan.returnDate : true),
   );
 };
 
@@ -69,7 +77,7 @@ export const isBookIdInLibraryIdAvailable = (
     (loan) =>
       loan.bookId === bookId &&
       loan.libraryId === libraryId &&
-      !loan.isReturned,
+      !loan.returnDate,
   );
 
   return libraryBookCopies - currentLoansBookInLibrary.length > 0
@@ -93,7 +101,7 @@ export const isBookIdInLibrariesIdAvailable = (
       (loan) =>
         loan.bookId === bookId &&
         loan.libraryId === libraryId &&
-        !loan.isReturned,
+        !loan.returnDate,
     );
 
     found =
@@ -152,5 +160,13 @@ export const getUserWaitList = (userId?: string) => {
 
   return bookWaitlistData.filter(
     (bookInWaitlist) => bookInWaitlist.userId === userId,
+  );
+};
+
+export const getUserBookLoanHistory = (userId?: string, bookId?: string) => {
+  if (!userId || !bookId) return [];
+
+  return loansData.filter(
+    (loan) => loan.userId === userId && loan.bookId === bookId,
   );
 };

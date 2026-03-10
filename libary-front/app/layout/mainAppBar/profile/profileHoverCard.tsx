@@ -18,6 +18,10 @@ function ProfileHoverCard() {
   const loginUserId = useLoginUserId((state) => state.loginUserId);
   const loginUser = getUserByUserId(loginUserId);
 
+  const navigateToUpdateInfoPage = () => {
+    navigate("/updateInfo");
+  };
+
   const navigateToWaitListPage = () => {
     navigate("/waitlist");
   };
@@ -30,6 +34,10 @@ function ProfileHoverCard() {
     navigate("/userLoansHIstory");
   };
 
+  const navigateToLogoutPage = () => {
+    navigate("/logout");
+  };
+
   return (
     <Popover.Root>
       <Popover.Trigger>
@@ -40,7 +48,7 @@ function ProfileHoverCard() {
       <Popover.Content width="360px">
         <Text>{loginUser?.name}</Text>
         <Separator my="3" size="4" />
-        <Text>update info</Text>
+        <Text onClick={(e) => navigateToUpdateInfoPage()}>update info</Text>
         <Separator my="3" size="4" />
         <Text onClick={(e) => navigateToWaitListPage()}>waitlist</Text>
         <Separator my="3" size="4" />
@@ -48,7 +56,7 @@ function ProfileHoverCard() {
         <Separator my="3" size="4" />
         <Text onClick={(e) => navigateToUserLoansHistoryPage()}>History</Text>
         <Separator my="3" size="4" />
-        <Text>log out</Text>
+        <Text onClick={() => navigateToLogoutPage()}>log out</Text>
       </Popover.Content>
     </Popover.Root>
   );

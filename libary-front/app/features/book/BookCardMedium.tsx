@@ -47,12 +47,15 @@ function BookCardMedium(props: BookCardMediumProps) {
 
       <div className="flex flex-col gap-3">
         <div>
-          <Text onClick={(e) => navigateToBookPage()}>
+          <Text
+            onClick={(e) => navigateToBookPage()}
+            className="cursor-pointer"
+          >
             <Strong>{props.book.name}</Strong>
           </Text>
         </div>
-        <div onClick={(e) => navigateToAuthorPage()}>
-          <Text>{props.book.author}</Text>
+        <div onClick={(e) => navigateToAuthorPage()} className="cursor-pointer">
+          <Text className="underline decoration-1">{props.book.author}</Text>
         </div>
         <div className="flex gap-3">
           {thisBooksGenres.map((genre) => (
@@ -62,6 +65,7 @@ function BookCardMedium(props: BookCardMediumProps) {
               radius="full"
               size="2"
               variant={genre.isMainGenre ? "solid" : "outline"}
+              className="cursor-pointer"
             >
               {genre.name}
             </Badge>

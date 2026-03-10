@@ -46,7 +46,10 @@ function WaitlistBook(props: waitlistBookProps) {
       )}
       <div className="flex flex-col gap-3">
         <div>
-          <Text onClick={(e) => navigateToBookPage()}>
+          <Text
+            onClick={(e) => navigateToBookPage()}
+            className="cursor-pointer"
+          >
             <Strong>{book?.name}</Strong>
           </Text>
         </div>
@@ -64,7 +67,12 @@ function WaitlistBook(props: waitlistBookProps) {
           <> place in line: {props.bookWaitList.position}</>
         )}
 
-        <Button onClick={() => onCancelWaitClicked()}>Cancel wait</Button>
+        <Button
+          className="cursor-pointer"
+          onClick={() => onCancelWaitClicked()}
+        >
+          Cancel wait
+        </Button>
       </div>
     </div>
   );

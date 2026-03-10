@@ -26,7 +26,7 @@ function BookImage(props: bookImageProps) {
       <img
         onClick={(e) => props.isNavigable && navigateToBookPage()}
         className={`${props.size === "large" ? "w-95 h-105" : props.size == "medium" ? "w-45 h-55" : "w-30 h-45"} rounded-[10px] 
-        ${props.isAvailabilityDisplay ? `border-4 ${isBookAvailableForUser(loginUserId, props.book.id) ? " border-green-500" : "border-red-500"}` : ""}`}
+        ${props.isAvailabilityDisplay ? `border-4 ${isBookAvailableForUser(loginUserId, props.book.id) ? " border-green-500" : "border-red-500"}` : ""} ${props.isNavigable ? "cursor-pointer" : ""}`}
         src={props.book.bookCoverSrc}
         alt="Header"
       />

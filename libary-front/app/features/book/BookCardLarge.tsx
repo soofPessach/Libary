@@ -63,7 +63,10 @@ function BookCardLarge(props: BookCardLargeProps) {
               <Strong>{props.book.name}</Strong>
             </Text>
           </div>
-          <div onClick={(e) => navigateToAuthorPage()}>
+          <div
+            onClick={(e) => navigateToAuthorPage()}
+            className="cursor-pointer"
+          >
             <Text>{props.book.author}</Text>
           </div>
           <div className="flex gap-3">
@@ -74,6 +77,7 @@ function BookCardLarge(props: BookCardLargeProps) {
                 radius="full"
                 size="2"
                 variant={genre.isMainGenre ? "solid" : "outline"}
+                className="cursor-pointer"
               >
                 {genre.name}
               </Badge>

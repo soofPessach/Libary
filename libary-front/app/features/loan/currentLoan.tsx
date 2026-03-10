@@ -50,7 +50,10 @@ function CurrentLoan(props: currentLoanProps) {
       )}
       <div className="flex flex-col gap-3">
         <div>
-          <Text onClick={(e) => navigateToBookPage()}>
+          <Text
+            onClick={(e) => navigateToBookPage()}
+            className="cursor-pointer"
+          >
             <Strong>{book?.name}</Strong>
           </Text>
         </div>

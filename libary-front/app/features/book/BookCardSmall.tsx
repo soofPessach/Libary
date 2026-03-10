@@ -15,7 +15,7 @@ function BookCardSmall(props: BookCardSmallProps) {
   };
 
   return (
-    <div onClick={(e) => onBookClick()}>
+    <div onClick={(e) => onBookClick()} className="cursor-pointer">
       <BookImage
         book={props.book}
         isNavigable={true}

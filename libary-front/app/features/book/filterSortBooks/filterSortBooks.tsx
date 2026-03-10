@@ -35,6 +35,7 @@ function FilterSortBooks(props: filterSortBooksProps) {
       <Badge
         variant={`${onlyAvailableBooks ? "solid" : "outline"}`}
         onClick={(e) => onOnlyAvailableClicked()}
+        className="cursor-pointer"
       >
         only available
       </Badge>

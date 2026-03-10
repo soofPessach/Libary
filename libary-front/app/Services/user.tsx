@@ -48,6 +48,15 @@ export const getUserLibrariesBooksId = (userId?: string) => {
   ).map((libraryBook) => libraryBook.bookId);
 };
 
+export const getUserLibraryBooks = (userId?: string) => {
+  if (!userId) return [];
+  const userLibrariesId = getUserLibrariesId(userId);
+
+  return libraryBooksData.filter((libraryBook) =>
+    userLibrariesId.includes(libraryBook.libraryId),
+  );
+};
+
 export const getUserLoans = (userId?: String, isOnlyCurrentLoans?: boolean) => {
   if (!userId) return [];
 

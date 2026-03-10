@@ -26,9 +26,9 @@ export default function Login() {
 
   return (
     <Theme>
-      <div className="min-h-screen bg-blue-100 flex items-center justify-center">
-        <Card size="3" style={{ width: 360 }}>
-          <div className="flex flex-col gap-5">
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 flex items-center justify-center px-4">
+        <Card size="3" className="w-full max-w-md shadow-lg">
+          <div className="flex flex-col gap-5 p-6">
             <Heading size="6" align="center">
               Library Login
             </Heading>
@@ -59,11 +59,11 @@ export default function Login() {
               />
             </div>
 
-            <Button size="3" onClick={handleLogin}>
+            <Button size="3" onClick={handleLogin} className="w-full">
               Log In
             </Button>
-            <Text color="red" size="1">
-              {loginFailed ? "password or email are incorrect" : ""}
+            <Text color="red" size="1" className="text-center">
+              {loginFailed ? "Email or password are incorrect" : ""}
             </Text>
           </div>
         </Card>

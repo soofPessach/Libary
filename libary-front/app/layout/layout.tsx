@@ -18,18 +18,20 @@ function Layout(props: layoutProps) {
   }, [loginUserId]);
 
   return (
-    <div>
-      <Theme>
-        {loginUserId ? (
-          <div>
-            <MainAppBar />
-            <div className="bg-blue-100 pr-40 pl-40 p-10">{props.children}</div>
-          </div>
-        ) : (
-          <Login />
-        )}
-      </Theme>
-    </div>
+    <Theme>
+      {loginUserId ? (
+        <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900">
+          <header className="sticky top-0  z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+            <div className="mx-auto max-w-6xl px-4">
+              <MainAppBar />
+            </div>
+          </header>
+          <main className="mx-auto max-w-6xl px-4 py-10">{props.children}</main>
+        </div>
+      ) : (
+        <Login />
+      )}
+    </Theme>
   );
 }
 

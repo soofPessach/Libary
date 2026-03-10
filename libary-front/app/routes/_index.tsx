@@ -5,9 +5,7 @@ import { books } from "../mockData/Book";
 import AllGenre from "../features/homePage/AllGenre";
 import { Separator } from "@radix-ui/themes";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
-import { userLibrariesData } from "~/mockData/UserLibraries";
-import { libraryBooksData } from "~/mockData/LibraryBook";
-import { getUserLibrariesBooksId } from "~/Services/user";
+import { getUserLibraryBooks, getUserLibrariesBooksId } from "~/Services/user";
 import { getBookByBooksId } from "~/Services/book";
 import { useMemo, useState } from "react";
 import {
@@ -21,13 +19,19 @@ import FilterSortBooks from "~/features/book/filterSortBooks/filterSortBooks";
 export default function Index() {
   const loginUserId = useLoginUserId((state) => state.loginUserId);
 
+  const userLibraryBooks = getUserLibraryBooks(loginUserId);
   const librariesBooks = getBookByBooksId(getUserLibrariesBooksId(loginUserId));
   const [filters, setFilters] = useState<Filter[]>([]);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.sortBy);
 
   const filteredBooks = useMemo(
-    () => sortBooks(sortBy, filterBooks(loginUserId, filters, librariesBooks)),
-    [loginUserId, filters, librariesBooks],
+    () =>
+      sortBooks(
+        sortBy,
+        filterBooks(loginUserId, filters, librariesBooks),
+        userLibraryBooks,
+      ),
+    [loginUserId, filters, librariesBooks, userLibraryBooks],
   );
 
   return (

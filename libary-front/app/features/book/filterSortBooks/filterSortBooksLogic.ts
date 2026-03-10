@@ -1,4 +1,5 @@
 import type { Book } from "~/mockData/Book";
+import type { LibraryBook } from "~/mockData/LibraryBook";
 import { isBookAvailableForUser } from "~/Services/user";
 
 export enum FilterBy {
@@ -27,15 +28,30 @@ export const filterBooks = (
   );
 };
 
-export const sortBooks = (sortBy: SortBy, books: Book[]) => {
+export const sortBooks = (
+  sortBy: SortBy,
+  books: Book[],
+  libraryBooks: LibraryBook[] = [],
+) => {
   switch (sortBy) {
     case SortBy.sortBy:
       return books;
-    case SortBy.uploadLast:
-      return books.sort(
-        (a, b) =>
-          a.uploadDate.getMilliseconds() - b.uploadDate.getMilliseconds(),
-      );
+
+    case SortBy.uploadLast: {
+      // Sort by the newest upload date for each book across the user's libraries
+      const latestUploadByBook = new Map<string, number>();
+      libraryBooks.forEach((lb) => {
+        const prev = latestUploadByBook.get(lb.bookId);
+        const next = lb.uploadDate.getTime();
+        if (!prev || next > prev) latestUploadByBook.set(lb.bookId, next);
+      });
+
+      return [...books].sort((a, b) => {
+        const aTime = latestUploadByBook.get(a.id) ?? 0;
+        const bTime = latestUploadByBook.get(b.id) ?? 0;
+        return bTime - aTime;
+      });
+    }
 
     default:
       return books;

@@ -4,7 +4,11 @@ import { bookGenres } from "~/mockData/BookToGanre";
 import { books } from "~/mockData/Book";
 import BookCardMedium from "~/features/book/BookCardMedium";
 import { Heading, Separator } from "@radix-ui/themes";
-import { getBookNameOrAuthorByTerm, getBooksByGenre } from "~/Services/user";
+import {
+  getBookNameOrAuthorByTerm,
+  getBooksByGenre,
+  getUserLibraryBooks,
+} from "~/Services/user";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
 import {
   filterBooks,
@@ -18,14 +22,20 @@ export default function BooksBySearchTerm() {
   const loginUserId = useLoginUserId((state) => state.loginUserId);
 
   const booksByTerm = getBookNameOrAuthorByTerm(loginUserId, term);
+  const userLibraryBooks = getUserLibraryBooks(loginUserId);
   const [filters, setFilters] = useState<Filter[]>([]);
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.sortBy);
 
   console.log(booksByTerm);
 
   const filteredBooks = useMemo(
-    () => sortBooks(sortBy, filterBooks(loginUserId, filters, booksByTerm)),
-    [loginUserId, filters, booksByTerm],
+    () =>
+      sortBooks(
+        sortBy,
+        filterBooks(loginUserId, filters, booksByTerm),
+        userLibraryBooks,
+      ),
+    [loginUserId, filters, booksByTerm, userLibraryBooks],
   );
 
   return (

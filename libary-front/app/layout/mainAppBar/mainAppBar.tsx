@@ -1,15 +1,10 @@
+import { Button, Flex, TextField } from "@radix-ui/themes";
 import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  TextArea,
-  TextField,
-} from "@radix-ui/themes";
-// import { Search } from "@mui/icons-material";
+  BookmarkIcon,
+  DiscordLogoIcon,
+  MagnifyingGlassIcon,
+} from "@radix-ui/react-icons";
 import { useNavigate } from "react-router";
-import { useLoginUserId } from "~/global/zustand/loginUserId";
-import { users } from "~/mockData/User";
 import ProfileHoverCard from "./profile/profileHoverCard";
 import { useState } from "react";
 
@@ -18,11 +13,12 @@ function MainAppBar() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigateToHomePage = () => {
-    navigate("");
+    navigate("/");
   };
 
   const navigateToSearchTerm = () => {
-    navigate(`/search/${searchTerm}`);
+    if (!searchTerm.trim()) return;
+    navigate(`/search/${encodeURIComponent(searchTerm.trim())}`);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -33,20 +29,31 @@ function MainAppBar() {
   };
 
   return (
-    <div className="flex flex-row gap-5 p-7">
-      <div onClick={(e) => navigateToHomePage()}>
-        <Avatar fallback={"L"} />
-      </div>
+    <Flex align="center" justify="between" className="h-16 gap-4">
+      <Button
+        variant="ghost"
+        onClick={navigateToHomePage}
+        className="h-10 w-10 rounded-full"
+        aria-label="Home"
+        title="Go to home"
+      >
+        <DiscordLogoIcon className="h-5 w-5" />
+      </Button>
+
       <TextField.Root
         placeholder="Search by book name or author"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown}
+        className="flex-1 max-w-xl"
       >
-        <TextField.Slot>{/* <Search /> */}</TextField.Slot>
+        <TextField.Slot>
+          <MagnifyingGlassIcon className="text-slate-500" />
+        </TextField.Slot>
       </TextField.Root>
+
       <ProfileHoverCard />
-    </div>
+    </Flex>
   );
 }
 

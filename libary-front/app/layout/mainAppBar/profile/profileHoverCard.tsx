@@ -1,7 +1,7 @@
 import {
   Avatar,
   Button,
-  HoverCard,
+  Flex,
   Popover,
   Separator,
   Text,
@@ -9,7 +9,6 @@ import {
 import React from "react";
 import { useNavigate } from "react-router";
 import { useLoginUserId } from "~/global/zustand/loginUserId";
-import { users } from "~/mockData/User";
 import { getUserByUserId } from "~/Services/user";
 
 function ProfileHoverCard() {
@@ -31,7 +30,7 @@ function ProfileHoverCard() {
   };
 
   const navigateToUserLoansHistoryPage = () => {
-    navigate("/userLoansHIstory");
+    navigate("/userLoansHistory");
   };
 
   const navigateToLogoutPage = () => {
@@ -45,18 +44,54 @@ function ProfileHoverCard() {
           <Avatar fallback={loginUser?.name.charAt(0) ?? "U"} />
         </Button>
       </Popover.Trigger>
-      <Popover.Content width="360px">
-        <Text>{loginUser?.name}</Text>
-        <Separator my="3" size="4" />
-        <Text onClick={(e) => navigateToUpdateInfoPage()}>update info</Text>
-        <Separator my="3" size="4" />
-        <Text onClick={(e) => navigateToWaitListPage()}>waitlist</Text>
-        <Separator my="3" size="4" />
-        <Text onClick={(e) => navigateToUserLoansPage()}>my books</Text>
-        <Separator my="3" size="4" />
-        <Text onClick={(e) => navigateToUserLoansHistoryPage()}>History</Text>
-        <Separator my="3" size="4" />
-        <Text onClick={() => navigateToLogoutPage()}>log out</Text>
+
+      <Popover.Content width="320px" className="p-4">
+        <Flex direction="column" gap="3">
+          <Text weight="bold" size="3">
+            {loginUser?.name}
+          </Text>
+
+          <Separator my="2" size="3" />
+
+          <Button
+            variant="ghost"
+            onClick={navigateToUpdateInfoPage}
+            className="justify-start"
+          >
+            Update info
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={navigateToWaitListPage}
+            className="justify-start"
+          >
+            Waitlist
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={navigateToUserLoansPage}
+            className="justify-start"
+          >
+            My books
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={navigateToUserLoansHistoryPage}
+            className="justify-start"
+          >
+            History
+          </Button>
+
+          <Separator my="2" size="3" />
+
+          <Button
+            variant="ghost"
+            onClick={navigateToLogoutPage}
+            className="justify-start text-red-600"
+          >
+            Log out
+          </Button>
+        </Flex>
       </Popover.Content>
     </Popover.Root>
   );

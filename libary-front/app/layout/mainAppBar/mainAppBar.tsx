@@ -37,7 +37,7 @@ function MainAppBar() {
         aria-label="Home"
         title="Go to home"
       >
-        <DiscordLogoIcon className="h-5 w-5" />
+        <DiscordLogoIcon className="h-5 w-5 cursor-pointer" />
       </Button>
 
       <TextField.Root
